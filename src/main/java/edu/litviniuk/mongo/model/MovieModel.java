@@ -22,7 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 @Document
-public class Movie {
+public class MovieModel {
 
     @Id
     private String id;
@@ -30,7 +30,7 @@ public class Movie {
     private String description;
     private String genre;
 
-    public Movie(String title, String description, String genre) {
+    public MovieModel(String title, String description, String genre) {
         this.title = title;
         this.description = description;
         this.genre = genre;
@@ -38,7 +38,7 @@ public class Movie {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Movie movie)) return false;
+        if (!(o instanceof MovieModel movie)) return false;
         return Objects.equals(id, movie.id);
     }
 

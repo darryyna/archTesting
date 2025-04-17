@@ -8,9 +8,8 @@ package edu.litviniuk.mongo.service;
   @since 17.04.2025 - 18.17
 */
 
-import edu.litviniuk.mongo.model.Movie;
+import edu.litviniuk.mongo.model.MovieModel;
 import edu.litviniuk.mongo.repository.MovieRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,32 +22,26 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
 
-    private List<Movie> movies = new ArrayList<>();
+    private List<MovieModel> movies = new ArrayList<>();
     {
-        movies.add(new Movie("1", "Inception", "A mind-bending thriller", "Sci-Fi"));
-        movies.add(new Movie("2","The Godfather", "A story about a powerful mafia family", "Crime"));
-        movies.add(new Movie("3","The Dark Knight", "A superhero battles crime in Gotham", "Action"));
+        movies.add(new MovieModel("1", "Inception", "A mind-bending thriller", "Sci-Fi"));
+        movies.add(new MovieModel("2","The Godfather", "A story about a powerful mafia family", "Crime"));
+        movies.add(new MovieModel("3","The Dark Knight", "A superhero battles crime in Gotham", "Action"));
     }
 
-    /* @PostConstruct
-    public void init() {
-        movieRepository.deleteAll();
-        movieRepository.saveAll(movies);
-    } */
-
-    public List<Movie> getAllMovies() {
+    public List<MovieModel> getAllMovies() {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieById(int id) {
+    public MovieModel getMovieById(int id) {
         return movieRepository.findById(String.valueOf(id)).orElse(null);
     }
 
-    public Movie addMovie(Movie movie) {
+    public MovieModel addMovie(MovieModel movie) {
         return movieRepository.save(movie);
     }
 
-    public Movie updateMovie(Movie movie) {
+    public MovieModel updateMovie(MovieModel movie) {
         return movieRepository.save(movie);
     }
 

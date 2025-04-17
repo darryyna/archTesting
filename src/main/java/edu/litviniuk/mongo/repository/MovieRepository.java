@@ -1,6 +1,6 @@
 package edu.litviniuk.mongo.repository;
 
-import edu.litviniuk.mongo.model.Movie;
+import edu.litviniuk.mongo.model.MovieModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
 */
 
 @Repository
-public interface MovieRepository extends MongoRepository<Movie, String> {
+public interface MovieRepository extends MongoRepository<MovieModel, String> {
 }
