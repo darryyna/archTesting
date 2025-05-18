@@ -113,6 +113,7 @@ class MovieServiceTest {
     void shouldDoNothingOnDeleteNonexistentMovie() {
         movieService.deleteMovie(1000);
 
+        // no exception means pass
         assertTrue(true);
     }
 

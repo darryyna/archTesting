@@ -31,12 +31,16 @@ public class MovieRestController {
          return movieService.getAllMovies();
      }
 
-     @GetMapping("/{id}")
-     public MovieModel getMovieById(@PathVariable int id) {
-         return movieService.getMovieById(id);
-     }
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieModel> getMovieById(@PathVariable int id) {
+        MovieModel movie = movieService.getMovieById(id);
+        return movie != null
+                ? ResponseEntity.ok(movie)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 
-     @PostMapping
+
+    @PostMapping
      public MovieModel addMovie(@RequestBody MovieModel movie) {
          return movieService.addMovie(movie);
      }
@@ -47,10 +51,11 @@ public class MovieRestController {
         return movieService.updateMovie(movie);
     }
 
-     @DeleteMapping("/{id}")
-     public void deleteMovie(@PathVariable int id) {
-         movieService.deleteMovie(id);
-     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable int id) {
+        movieService.deleteMovie(id);
+        return ResponseEntity.noContent().build();
+    }
 
     @PostMapping("/dto")
     public ResponseEntity<?> insert(@RequestBody CreateMovieRequest request) {
