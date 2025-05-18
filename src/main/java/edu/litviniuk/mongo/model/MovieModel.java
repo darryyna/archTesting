@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /*
@@ -30,7 +32,17 @@ public class MovieModel {
     private String description;
     private String genre;
 
+    private LocalDateTime createDate;
+    private List<LocalDateTime> updateDate;
+
     public MovieModel(String title, String description, String genre) {
+        this.title = title;
+        this.description = description;
+        this.genre = genre;
+    }
+
+    public MovieModel(String id, String title, String description, String genre) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.genre = genre;

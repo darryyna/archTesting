@@ -113,7 +113,6 @@ class MovieServiceTest {
     void shouldDoNothingOnDeleteNonexistentMovie() {
         movieService.deleteMovie(1000);
 
-        // no exception means pass
         assertTrue(true);
     }
 
@@ -192,7 +191,7 @@ class MovieServiceTest {
         movieService.addMovie(movie);
 
         MovieModel result = movieService.getMovieById(15);
-        assertEquals("  Trim Me  ", result.getTitle()); // trimming не реалізовано, просто тест
+        assertEquals("  Trim Me  ", result.getTitle());
     }
 
     @Test

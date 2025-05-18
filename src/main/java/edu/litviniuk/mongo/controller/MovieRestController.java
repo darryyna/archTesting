@@ -9,8 +9,12 @@ package edu.litviniuk.mongo.controller;
 */
 
 import edu.litviniuk.mongo.model.MovieModel;
+import edu.litviniuk.mongo.request.CreateMovieRequest;
+import edu.litviniuk.mongo.request.UpdateMovieRequest;
 import edu.litviniuk.mongo.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,4 +51,27 @@ public class MovieRestController {
      public void deleteMovie(@PathVariable int id) {
          movieService.deleteMovie(id);
      }
+
+    @PostMapping("/dto")
+    public ResponseEntity<?> insert(@RequestBody CreateMovieRequest request) {
+        try {
+            MovieModel created = movieService.create(request);
+            return ResponseEntity.ok(created);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/dto")
+    public ResponseEntity<?> edit(@RequestBody UpdateMovieRequest request) {
+        try {
+            MovieModel updated = movieService.update(request);
+            return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equals("Movie not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            }
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
