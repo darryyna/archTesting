@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/movies/")
+@RequestMapping("/api/v1/movies")
 @RequiredArgsConstructor
 public class MovieRestController {
 
@@ -32,11 +32,9 @@ public class MovieRestController {
      }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieModel> getMovieById(@PathVariable int id) {
-        MovieModel movie = movieService.getMovieById(id);
-        return movie != null
-                ? ResponseEntity.ok(movie)
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<MovieModel> getMovieById(@PathVariable String id) {
+        MovieModel movie = movieService.getMovieById(Integer.parseInt(id));
+        return movie != null ? ResponseEntity.ok(movie) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 
@@ -46,14 +44,14 @@ public class MovieRestController {
      }
 
     @PutMapping("/{id}")
-    public MovieModel updateMovie(@PathVariable int id, @RequestBody MovieModel movie) {
-        movie.setId(String.valueOf(id));
+    public MovieModel updateMovie(@PathVariable String id, @RequestBody MovieModel movie) {
+        movie.setId(id);
         return movieService.updateMovie(movie);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMovie(@PathVariable int id) {
-        movieService.deleteMovie(id);
+    public ResponseEntity<Void> deleteMovie(@PathVariable String id) {
+        movieService.deleteMovie(Integer.parseInt(id));
         return ResponseEntity.noContent().build();
     }
 

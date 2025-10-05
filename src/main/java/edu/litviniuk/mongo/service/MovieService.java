@@ -12,6 +12,7 @@ import edu.litviniuk.mongo.model.MovieModel;
 import edu.litviniuk.mongo.repository.MovieRepository;
 import edu.litviniuk.mongo.request.CreateMovieRequest;
 import edu.litviniuk.mongo.request.UpdateMovieRequest;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,19 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     private List<MovieModel> movies = new ArrayList<>();
-    {
+
+
+    @PostConstruct
+    void init()    {
         movies.add(new MovieModel("1", "Inception", "A mind-bending thriller", "Sci-Fi"));
         movies.add(new MovieModel("2","The Godfather", "A story about a powerful mafia family", "Crime"));
         movies.add(new MovieModel("3","The Dark Knight", "A superhero battles crime in Gotham", "Action"));
+        movieRepository.deleteAll();
+        movieRepository.saveAll(movies);
+
     }
+
+
 
     public List<MovieModel> getAllMovies() {
         return movieRepository.findAll();
