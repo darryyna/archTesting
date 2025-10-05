@@ -1,0 +1,12 @@
+### GET ALL MOVIES
+GET http://localhost:8080/api/v1/movies
+Authorization: Basic daryna admin
+Accept: application/json
+
+###
+
+### GET ONE MOVIE
+GET http://localhost:8080/api/v1/movies/1
+Authorization: Basic daryna admin
+Accept: application/json
+###
