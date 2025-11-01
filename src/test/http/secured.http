@@ -1,6 +1,6 @@
 ### GET ALL MOVIES
 GET http://localhost:8080/api/v1/movies
-Authorization: Basic daryna admin
+Authorization: Basic admin daryna
 Accept: application/json
 
 ###
@@ -10,3 +10,73 @@ GET http://localhost:8080/api/v1/movies/1
 Authorization: Basic daryna admin
 Accept: application/json
 ###
+
+
+### GET ALL MOVIES (ADMIN or ROOT)
+GET http://localhost:8080/api/v1/movies
+Authorization: Basic admin daryna
+Accept: application/json
+
+###
+
+### GET ONE MOVIE (ADMIN or ROOT)
+GET http://localhost:8080/api/v1/movies/1
+Authorization: Basic admin daryna
+Accept: application/json
+
+###
+
+### ADD MOVIE (Only ADMIN)
+POST http://localhost:8080/api/v1/movies
+Authorization: Basic admin daryna
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Inception",
+  "director": "Christopher Nolan",
+  "year": 2010
+}
+
+###
+
+### UPDATE MOVIE (Only ROOT)
+PUT http://localhost:8080/api/v1/movies/1
+Authorization: Basic root root
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "1",
+  "title": "Inception Updated",
+  "director": "Christopher Nolan",
+  "year": 2011
+}
+
+###
+
+### DELETE MOVIE (Only ROOT)
+DELETE http://localhost:8080/api/v1/movies/1
+Authorization: Basic root root
+Accept: application/json
+
+###
+
+### HELLO USER (Only USER)
+GET http://localhost:8080/api/v1/movies/hello/user
+Authorization: Basic user 12345
+Accept: text/plain
+
+###
+
+### HELLO ADMIN (Only ADMIN)
+GET http://localhost:8080/api/v1/movies/hello/admin
+Authorization: Basic admin daryna
+Accept: text/plain
+
+###
+
+### HELLO ROOT (Only ROOT)
+GET http://localhost:8080/api/v1/movies/hello/root
+Authorization: Basic root root
+Accept: text/plain

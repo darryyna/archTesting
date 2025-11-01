@@ -24,12 +24,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieRestController {
 
-     private final MovieService movieService;
+    private final MovieService movieService;
 
-     @GetMapping
-     public List<MovieModel> getAllMovies() {
-         return movieService.getAllMovies();
-     }
+    @GetMapping
+    public List<MovieModel> getAllMovies() {
+        return movieService.getAllMovies();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<MovieModel> getMovieById(@PathVariable String id) {
@@ -39,9 +39,9 @@ public class MovieRestController {
 
 
     @PostMapping
-     public MovieModel addMovie(@RequestBody MovieModel movie) {
-         return movieService.addMovie(movie);
-     }
+    public MovieModel addMovie(@RequestBody MovieModel movie) {
+        return movieService.addMovie(movie);
+    }
 
     @PutMapping("/{id}")
     public MovieModel updateMovie(@PathVariable String id, @RequestBody MovieModel movie) {
@@ -76,5 +76,20 @@ public class MovieRestController {
             }
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("hello/admin")
+    public static String forAdmin() {
+        return "This URL is only accessible to users with the ADMIN role.";
+    }
+
+    @GetMapping("hello/user")
+    public static String forUser() {
+        return "This URL is only accessible to users with the USER role.";
+    }
+
+    @GetMapping("hello/root")
+    public static String forRoot() {
+        return "This URL is only accessible to users with the ROOT role.";
     }
 }
