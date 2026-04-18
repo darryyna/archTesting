@@ -11,6 +11,8 @@ package edu.litviniuk.mongo.controller;
 import edu.litviniuk.mongo.model.MovieModel;
 import edu.litviniuk.mongo.request.CreateMovieRequest;
 import edu.litviniuk.mongo.request.UpdateMovieRequest;
+import edu.litviniuk.mongo.response.ApiResponse;
+import edu.litviniuk.mongo.response.BaseMetaData;
 import edu.litviniuk.mongo.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -78,18 +80,37 @@ public class MovieRestController {
         }
     }
 
-    @GetMapping("hello/admin")
-    public static String forAdmin() {
-        return "This URL is only accessible to users with the ADMIN role.";
+
+    // new methods with api response
+
+    @GetMapping("/api-response")
+    public ApiResponse<BaseMetaData, MovieModel> getAllMoviesApi() {
+        return movieService.getAllMoviesApiResponse();
     }
 
-    @GetMapping("hello/user")
-    public static String forUser() {
-        return "This URL is only accessible to users with the USER role.";
+    @GetMapping("/api-response/{id}")
+    public ResponseEntity<ApiResponse<BaseMetaData, MovieModel>> getMovieByIdApi(@PathVariable String id) {
+        ApiResponse<BaseMetaData, MovieModel> response = movieService.getMovieByIdApiResponse(id);
+        return response.getMeta().isSuccess()
+                ? ResponseEntity.ok(response)
+                : ResponseEntity.status(response.getMeta().getCode()).body(response);
     }
 
-    @GetMapping("hello/root")
-    public static String forRoot() {
-        return "This URL is only accessible to users with the ROOT role.";
+    @PostMapping("/api-response")
+    public ResponseEntity<ApiResponse<BaseMetaData, MovieModel>> createMovieApi(@RequestBody CreateMovieRequest request) {
+        ApiResponse<BaseMetaData, MovieModel> response = movieService.createMovieApiResponse(request);
+        return ResponseEntity.status(response.getMeta().getCode()).body(response);
+    }
+
+    @PutMapping("/api-response")
+    public ResponseEntity<ApiResponse<BaseMetaData, MovieModel>> updateMovieApi(@RequestBody UpdateMovieRequest request) {
+        ApiResponse<BaseMetaData, MovieModel> response = movieService.updateMovieApiResponse(request);
+        return ResponseEntity.status(response.getMeta().getCode()).body(response);
+    }
+
+    @DeleteMapping("/api-response/{id}")
+    public ResponseEntity<ApiResponse<BaseMetaData, Void>> deleteMovieApi(@PathVariable String id) {
+        ApiResponse<BaseMetaData, Void> response = movieService.deleteMovieApiResponse(id);
+        return ResponseEntity.status(response.getMeta().getCode()).body(response);
     }
 }
