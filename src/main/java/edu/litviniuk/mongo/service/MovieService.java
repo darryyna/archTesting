@@ -34,7 +34,7 @@ public class MovieService {
         movies.add(new MovieModel("1", "Inception", "A mind-bending thriller", "Sci-Fi"));
         movies.add(new MovieModel("2","The Godfather", "A story about a powerful mafia family", "Crime"));
         movies.add(new MovieModel("3","The Dark Knight", "A superhero battles crime in Gotham", "Action"));
-        movieRepository.deleteAll();
+//        movieRepository.deleteAll();
         movieRepository.saveAll(movies);
 
     }
